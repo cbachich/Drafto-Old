@@ -4,11 +4,10 @@
  */
 package fantasydrafter.hmi;
 
+import fantasydrafter.CustomModel;
+import fantasydrafter.CustomTable;
 import fantasydrafter.Team;
 import java.util.ArrayList;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -26,17 +25,9 @@ public class DraftDisplay extends javax.swing.JFrame {
   private static String BAD_TABLE = 
           "There is bad data in the table. Please correct!";
   
-  // Numeric Settings
-  private static int ROWS = 12;
-  private static int COLUMNS = 7;
-  private static int TOTAL_PICKS = 5;
+  // Range for pick values
   private static int MIN_PICK_RANGE = 1;
   private static int MAX_PICK_RANGE = 10;
-  
-  // Indexes
-  private static int TEAM_NAME_COL = 0;
-  private static int FIRST_PICK_COL = 1;
-  private static int LAST_PICK_COL = FIRST_PICK_COL + TOTAL_PICKS;
   
   // Console Text
   StringBuffer consoleText;
@@ -46,6 +37,13 @@ public class DraftDisplay extends javax.swing.JFrame {
    */
   public DraftDisplay() {
     initComponents();
+    
+    // Setup the JTable
+    pickModel = new CustomModel();
+    pickTable = new CustomTable();
+    pickTable.setModel(pickModel);
+    PickScrollPane.setViewportView(pickTable);
+    
     consoleText = new StringBuffer();
   }
 
@@ -65,7 +63,6 @@ public class DraftDisplay extends javax.swing.JFrame {
     EndButton = new javax.swing.JButton();
     PickPanel = new javax.swing.JPanel();
     PickScrollPane = new javax.swing.JScrollPane();
-    PickTable = new javax.swing.JTable();
     ConsolePanel = new javax.swing.JScrollPane();
     ConsoleTextArea = new javax.swing.JTextArea();
 
@@ -129,61 +126,19 @@ public class DraftDisplay extends javax.swing.JFrame {
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
-    PickTable.setModel(new javax.swing.table.DefaultTableModel(
-      new Object [][] {
-        {"8-Bit Warriors",  new Integer(1),  new Integer(2),  new Integer(3),  new Integer(4),  new Integer(5), null},
-        {null, null, null, null, null, null, null},
-        {"Victorious Secret",  new Integer(2),  new Integer(5), null,  new Integer(5),  new Integer(3), null},
-        {null, null, null, null, null, null, null},
-        {null,  new Integer(2),  new Integer(5),  new Integer(6),  new Integer(7),  new Integer(8), null},
-        {"Smack Talkers",  new Integer(8),  new Integer(0),  new Integer(5),  new Integer(12),  new Integer(8), null},
-        {null, null, null, null, null, null, null},
-        {"Someone",  new Integer(2),  new Integer(3),  new Integer(100),  new Integer(8),  new Integer(9), null},
-        {null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null}
-      },
-      new String [] {
-        "Team", "Pick 1", "Pick 2", "Pick 3", "Pick4", "Pick 5", "Draft Order"
-      }
-    ) {
-      Class[] types = new Class [] {
-        java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-      };
-
-      public Class getColumnClass(int columnIndex) {
-        return types [columnIndex];
-      }
-    });
-    PickScrollPane.setViewportView(PickTable);
-    PickTable.getColumnModel().getColumn(0).setPreferredWidth(150);
-    PickTable.getColumnModel().getColumn(1).setPreferredWidth(50);
-    PickTable.getColumnModel().getColumn(2).setPreferredWidth(50);
-    PickTable.getColumnModel().getColumn(3).setPreferredWidth(50);
-    PickTable.getColumnModel().getColumn(4).setPreferredWidth(50);
-    PickTable.getColumnModel().getColumn(5).setPreferredWidth(50);
-    PickTable.getColumnModel().getColumn(6).setPreferredWidth(100);
-
     javax.swing.GroupLayout PickPanelLayout = new javax.swing.GroupLayout(PickPanel);
     PickPanel.setLayout(PickPanelLayout);
     PickPanelLayout.setHorizontalGroup(
       PickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 0, Short.MAX_VALUE)
+      .addGap(0, 598, Short.MAX_VALUE)
       .addGroup(PickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(PickPanelLayout.createSequentialGroup()
-          .addContainerGap()
-          .addComponent(PickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
-          .addContainerGap()))
+        .addComponent(PickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
     );
     PickPanelLayout.setVerticalGroup(
       PickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGap(0, 267, Short.MAX_VALUE)
       .addGroup(PickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PickPanelLayout.createSequentialGroup()
-          .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(PickScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addContainerGap()))
+        .addComponent(PickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
     );
 
     ConsoleTextArea.setColumns(20);
@@ -255,7 +210,7 @@ public class DraftDisplay extends javax.swing.JFrame {
     ToggleButtons(START);
     
     // Lock the fields
-    lockFields(true);
+    pickModel.lockCells();
   }
   
   // Pause the drafter
@@ -278,7 +233,7 @@ public class DraftDisplay extends javax.swing.JFrame {
     ToggleButtons(END);
     
     // Unlock the fields
-    lockFields(false);
+    pickModel.unlockCells();
   }
   
   // Toggle the buttons
@@ -307,7 +262,7 @@ public class DraftDisplay extends javax.swing.JFrame {
     boolean passed = true;
     
     // Step through each row for error checking
-    for (int row = 0; row < ROWS; row++) {
+    for (int row = 0; row < CustomModel.ROWS; row++) {
       // Start by checking if the team name is empty. If it is, then don't check
       // the draft numbers
       String name = getTeamName(row);
@@ -323,7 +278,9 @@ public class DraftDisplay extends javax.swing.JFrame {
       
       // Check that each of the pick number is between the set values
       int count = 1;
-      for(int pickCol = FIRST_PICK_COL; pickCol < LAST_PICK_COL; pickCol++) {
+      for(int pickCol = CustomModel.FIRST_PICK_COL;
+              pickCol < CustomModel.LAST_PICK_COL; 
+              pickCol++) {
         if(isPickGood(row,pickCol)) {
           team.addPick(getPickValue(row,pickCol));
         } else {
@@ -352,8 +309,8 @@ public class DraftDisplay extends javax.swing.JFrame {
   // Return the team name in the passed in row
   private String getTeamName(int row) {
     try {
-      return PickTable.getModel().
-              getValueAt(row, TEAM_NAME_COL).toString().trim();
+      return pickModel.getValueAt(row, CustomModel.TEAM_NAME_COL).
+              toString().trim();
     } catch(Exception ex) {
       return "";
     }
@@ -362,7 +319,7 @@ public class DraftDisplay extends javax.swing.JFrame {
   // Checks if the pick cell is good
   private boolean isPickGood(int row, int col) {
     try {
-      int pick = (Integer)PickTable.getModel().getValueAt(row, col);
+      int pick = (Integer)pickModel.getValueAt(row, col);
       if( (pick >= MIN_PICK_RANGE) && (pick <= MAX_PICK_RANGE)) {
         return true;
       }
@@ -376,12 +333,7 @@ public class DraftDisplay extends javax.swing.JFrame {
   
   // Return the pick value in the row and col
   private int getPickValue(int row, int col) {
-    return (Integer)PickTable.getModel().getValueAt(row, col);
-  }
-  
-  // Locks the fields so the can not be edited
-  private void lockFields(boolean lock) {
-    // TODO
+    return (Integer)pickModel.getValueAt(row, col);
   }
 
   private void writeToConsole(String add) {
@@ -423,6 +375,11 @@ public class DraftDisplay extends javax.swing.JFrame {
       }
     });
   }
+  
+  // Variables decleration - can modify
+  private CustomModel pickModel;
+  private CustomTable pickTable;
+  
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JPanel ButtonPanel;
   private javax.swing.JScrollPane ConsolePanel;
@@ -431,7 +388,6 @@ public class DraftDisplay extends javax.swing.JFrame {
   private javax.swing.JButton PauseButton;
   private javax.swing.JPanel PickPanel;
   private javax.swing.JScrollPane PickScrollPane;
-  private javax.swing.JTable PickTable;
   private javax.swing.JButton ResumeButton;
   private javax.swing.JButton StartButton;
   // End of variables declaration//GEN-END:variables
