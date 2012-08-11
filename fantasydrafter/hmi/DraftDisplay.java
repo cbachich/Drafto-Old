@@ -6,6 +6,7 @@ package fantasydrafter.hmi;
 
 import fantasydrafter.CustomModel;
 import fantasydrafter.CustomTable;
+import fantasydrafter.DraftoMachine;
 import fantasydrafter.Team;
 import java.util.ArrayList;
 
@@ -25,12 +26,10 @@ public class DraftDisplay extends javax.swing.JFrame {
   private static String BAD_TABLE = 
           "There is bad data in the table. Please correct!";
   
-  // Range for pick values
-  private static int MIN_PICK_RANGE = 1;
-  private static int MAX_PICK_RANGE = 10;
-  
-  // Console Text
-  StringBuffer consoleText;
+  // Global Values
+  private StringBuffer consoleText;
+  private DraftoMachine drafto;
+  private Thread draftoThread;
   
   /**
    * Creates new form DraftDisplay
@@ -211,6 +210,12 @@ public class DraftDisplay extends javax.swing.JFrame {
     
     // Lock the fields
     pickModel.lockCells();
+    
+    // Start Drafto
+    drafto = new DraftoMachine();
+    draftoThread = new Thread(drafto);
+    draftoThread.start();
+    
   }
   
   // Pause the drafter
@@ -218,12 +223,18 @@ public class DraftDisplay extends javax.swing.JFrame {
     // Toggle the buttons
     ToggleButtons(PAUSE);
     
+    // Pause Drafto
+    drafto.pause();
+    
   }
   
   // Resume the drafter
   private void ResumeDrafter() {
     // Toggle the buttons
     ToggleButtons(RESUME);
+    
+    // Resume Drafto
+    drafto.resume();
     
   }
   
@@ -320,7 +331,7 @@ public class DraftDisplay extends javax.swing.JFrame {
   private boolean isPickGood(int row, int col) {
     try {
       int pick = (Integer)pickModel.getValueAt(row, col);
-      if( (pick >= MIN_PICK_RANGE) && (pick <= MAX_PICK_RANGE)) {
+      if( (pick >= DraftoMachine.MIN) && (pick <= DraftoMachine.MAX)) {
         return true;
       }
       else {
