@@ -37,13 +37,13 @@ public class DraftDisplay extends javax.swing.JFrame {
     initComponents();
     
     // Setup the console
-    console = new Console(ConsoleTextArea);
+    console = new Console(consoleTextArea);
     
     // Setup the JTable
     pickModel = new CustomModel(console);
     pickTable = new CustomTable();
     pickTable.setModel(pickModel);
-    PickScrollPane.setViewportView(pickTable);
+    pickScrollPane.setViewportView(pickTable);
   }
 
   /**
@@ -55,94 +55,94 @@ public class DraftDisplay extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
-    ButtonPanel = new javax.swing.JPanel();
-    StartButton = new javax.swing.JButton();
-    ResumeButton = new javax.swing.JButton();
-    PauseButton = new javax.swing.JButton();
-    EndButton = new javax.swing.JButton();
-    PickPanel = new javax.swing.JPanel();
-    PickScrollPane = new javax.swing.JScrollPane();
-    ConsolePanel = new javax.swing.JScrollPane();
-    ConsoleTextArea = new javax.swing.JTextArea();
+    buttonPanel = new javax.swing.JPanel();
+    startButton = new javax.swing.JButton();
+    resumeButton = new javax.swing.JButton();
+    pauseButton = new javax.swing.JButton();
+    endButton = new javax.swing.JButton();
+    pickPanel = new javax.swing.JPanel();
+    pickScrollPane = new javax.swing.JScrollPane();
+    consolePanel = new javax.swing.JScrollPane();
+    consoleTextArea = new javax.swing.JTextArea();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    StartButton.setText("Start");
-    StartButton.addActionListener(new java.awt.event.ActionListener() {
+    startButton.setText("Start");
+    startButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        DraftDisplay.this.actionPerformed(evt);
+        startDrafto(evt);
       }
     });
 
-    ResumeButton.setText("Resume");
-    ResumeButton.setEnabled(false);
-    ResumeButton.addActionListener(new java.awt.event.ActionListener() {
+    resumeButton.setText("Resume");
+    resumeButton.setEnabled(false);
+    resumeButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        DraftDisplay.this.actionPerformed(evt);
+        resumeDrafto(evt);
       }
     });
 
-    PauseButton.setText("Pause");
-    PauseButton.setEnabled(false);
-    PauseButton.addActionListener(new java.awt.event.ActionListener() {
+    pauseButton.setText("Pause");
+    pauseButton.setEnabled(false);
+    pauseButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        DraftDisplay.this.actionPerformed(evt);
+        pauseDrafto(evt);
       }
     });
 
-    EndButton.setText("End");
-    EndButton.setEnabled(false);
-    EndButton.addActionListener(new java.awt.event.ActionListener() {
+    endButton.setText("End");
+    endButton.setEnabled(false);
+    endButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        DraftDisplay.this.actionPerformed(evt);
+        endDrafto(evt);
       }
     });
 
-    javax.swing.GroupLayout ButtonPanelLayout = new javax.swing.GroupLayout(ButtonPanel);
-    ButtonPanel.setLayout(ButtonPanelLayout);
-    ButtonPanelLayout.setHorizontalGroup(
-      ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(ButtonPanelLayout.createSequentialGroup()
+    javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
+    buttonPanel.setLayout(buttonPanelLayout);
+    buttonPanelLayout.setHorizontalGroup(
+      buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(buttonPanelLayout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(StartButton)
+        .addComponent(startButton)
         .addGap(18, 18, 18)
-        .addComponent(PauseButton)
+        .addComponent(pauseButton)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(ResumeButton)
+        .addComponent(resumeButton)
         .addGap(18, 18, 18)
-        .addComponent(EndButton)
+        .addComponent(endButton)
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
-    ButtonPanelLayout.setVerticalGroup(
-      ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(ButtonPanelLayout.createSequentialGroup()
+    buttonPanelLayout.setVerticalGroup(
+      buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(buttonPanelLayout.createSequentialGroup()
         .addContainerGap()
-        .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(ResumeButton)
-          .addComponent(PauseButton)
-          .addComponent(StartButton)
-          .addComponent(EndButton))
+        .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(resumeButton)
+          .addComponent(pauseButton)
+          .addComponent(startButton)
+          .addComponent(endButton))
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
-    javax.swing.GroupLayout PickPanelLayout = new javax.swing.GroupLayout(PickPanel);
-    PickPanel.setLayout(PickPanelLayout);
-    PickPanelLayout.setHorizontalGroup(
-      PickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    javax.swing.GroupLayout pickPanelLayout = new javax.swing.GroupLayout(pickPanel);
+    pickPanel.setLayout(pickPanelLayout);
+    pickPanelLayout.setHorizontalGroup(
+      pickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGap(0, 598, Short.MAX_VALUE)
-      .addGroup(PickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(PickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
+      .addGroup(pickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(pickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
     );
-    PickPanelLayout.setVerticalGroup(
-      PickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    pickPanelLayout.setVerticalGroup(
+      pickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGap(0, 267, Short.MAX_VALUE)
-      .addGroup(PickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(PickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+      .addGroup(pickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(pickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
     );
 
-    ConsoleTextArea.setColumns(20);
-    ConsoleTextArea.setRows(5);
-    ConsolePanel.setViewportView(ConsoleTextArea);
+    consoleTextArea.setColumns(20);
+    consoleTextArea.setRows(5);
+    consolePanel.setViewportView(consoleTextArea);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -151,51 +151,27 @@ public class DraftDisplay extends javax.swing.JFrame {
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
         .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-          .addComponent(ConsolePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
-          .addComponent(ButtonPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(PickPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          .addComponent(consolePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+          .addComponent(buttonPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(pickPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addContainerGap())
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(ButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(PickPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(pickPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(ConsolePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(consolePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap())
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void actionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionPerformed
-
-    // Get the command string
-    String command = evt.getActionCommand();
-    // Perform an action based on the button selected
-    console.write("Command: " + command);
-    
-    switch(command) {
-      case "Start": 
-        StartDrafter();
-        break;
-      case "Resume":
-        ResumeDrafter();
-        break;
-      case "Pause":
-        PauseDrafter();
-        break;
-      case "End":
-        EndDrafter();
-        break;
-    }
-  }//GEN-LAST:event_actionPerformed
-
-  // Start the drafter
-  private void StartDrafter() {
+  private void startDrafto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startDrafto
     // Check that the table contains good values. If not, inform the user and do
     // not continue
     if(!pickModel.isTableGood()) {
@@ -204,7 +180,7 @@ public class DraftDisplay extends javax.swing.JFrame {
     }
     
     // Toggle the buttons
-    ToggleButtons(START);
+    toggleButtons(START);
     
     // Lock the fields
     pickModel.lockCells();
@@ -213,53 +189,49 @@ public class DraftDisplay extends javax.swing.JFrame {
     drafto = new DraftoMachine(console);
     draftoThread = new Thread(drafto);
     draftoThread.start();
-    
-  }
-  
-  // Pause the drafter
-  private void PauseDrafter() {
+  }//GEN-LAST:event_startDrafto
+
+  private void pauseDrafto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseDrafto
     // Toggle the buttons
-    ToggleButtons(PAUSE);
+    toggleButtons(PAUSE);
     
     // Pause Drafto
     drafto.pause();
-  }
-  
-  // Resume the drafter
-  private void ResumeDrafter() {
+  }//GEN-LAST:event_pauseDrafto
+
+  private void resumeDrafto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resumeDrafto
     // Toggle the buttons
-    ToggleButtons(RESUME);
+    toggleButtons(RESUME);
     
     // Resume Drafto
     drafto.resume();
-  }
-  
-  // Ends the drafter
-  private void EndDrafter() {
+  }//GEN-LAST:event_resumeDrafto
+
+  private void endDrafto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endDrafto
     // Toggle the buttons
-    ToggleButtons(END);
+    toggleButtons(END);
     
     // Unlock the fields
     pickModel.unlockCells();
-  }
+  }//GEN-LAST:event_endDrafto
   
   // Toggle the buttons
-  private void ToggleButtons(String cmd) {
+  private void toggleButtons(String cmd) {
     if (cmd.matches(START) || cmd.matches(RESUME)) {
-      StartButton.setEnabled(false);
-      ResumeButton.setEnabled(false);
-      PauseButton.setEnabled(true);
-      EndButton.setEnabled(false);
+      startButton.setEnabled(false);
+      resumeButton.setEnabled(false);
+      pauseButton.setEnabled(true);
+      endButton.setEnabled(false);
     } else if (cmd.matches(PAUSE)) {
-      StartButton.setEnabled(false);
-      ResumeButton.setEnabled(true);
-      PauseButton.setEnabled(false);
-      EndButton.setEnabled(true);
+      startButton.setEnabled(false);
+      resumeButton.setEnabled(true);
+      pauseButton.setEnabled(false);
+      endButton.setEnabled(true);
     } else if (cmd.matches(END)) {
-      StartButton.setEnabled(true);
-      ResumeButton.setEnabled(false);
-      PauseButton.setEnabled(false);
-      EndButton.setEnabled(false);     
+      startButton.setEnabled(true);
+      resumeButton.setEnabled(false);
+      pauseButton.setEnabled(false);
+      endButton.setEnabled(false);     
     }
   }
 
@@ -304,14 +276,14 @@ public class DraftDisplay extends javax.swing.JFrame {
   private CustomTable pickTable;
   
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JPanel ButtonPanel;
-  private javax.swing.JScrollPane ConsolePanel;
-  private javax.swing.JTextArea ConsoleTextArea;
-  private javax.swing.JButton EndButton;
-  private javax.swing.JButton PauseButton;
-  private javax.swing.JPanel PickPanel;
-  private javax.swing.JScrollPane PickScrollPane;
-  private javax.swing.JButton ResumeButton;
-  private javax.swing.JButton StartButton;
+  private javax.swing.JPanel buttonPanel;
+  private javax.swing.JScrollPane consolePanel;
+  private javax.swing.JTextArea consoleTextArea;
+  private javax.swing.JButton endButton;
+  private javax.swing.JButton pauseButton;
+  private javax.swing.JPanel pickPanel;
+  private javax.swing.JScrollPane pickScrollPane;
+  private javax.swing.JButton resumeButton;
+  private javax.swing.JButton startButton;
   // End of variables declaration//GEN-END:variables
 }

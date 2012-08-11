@@ -25,9 +25,9 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="ConsolePanel" pref="598" max="32767" attributes="0"/>
-                  <Component id="ButtonPanel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="PickPanel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="consolePanel" pref="598" max="32767" attributes="0"/>
+                  <Component id="buttonPanel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="pickPanel" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -37,31 +37,31 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="ButtonPanel" min="-2" max="-2" attributes="0"/>
+              <Component id="buttonPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="PickPanel" min="-2" max="-2" attributes="0"/>
+              <Component id="pickPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="ConsolePanel" min="-2" pref="100" max="-2" attributes="0"/>
+              <Component id="consolePanel" min="-2" pref="100" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="ButtonPanel">
+    <Container class="javax.swing.JPanel" name="buttonPanel">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="StartButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="startButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="PauseButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="pauseButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="ResumeButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="resumeButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="EndButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="endButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -71,10 +71,10 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="ResumeButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="PauseButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="StartButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="EndButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="resumeButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="pauseButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="startButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="endButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -82,51 +82,51 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="StartButton">
+        <Component class="javax.swing.JButton" name="startButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Start"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="actionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startDrafto"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="ResumeButton">
+        <Component class="javax.swing.JButton" name="resumeButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Resume"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="actionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resumeDrafto"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="PauseButton">
+        <Component class="javax.swing.JButton" name="pauseButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pause"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="actionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pauseDrafto"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="EndButton">
+        <Component class="javax.swing.JButton" name="endButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="End"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="actionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="endDrafto"/>
           </Events>
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="PickPanel">
+    <Container class="javax.swing.JPanel" name="pickPanel">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <EmptySpace min="0" pref="598" max="32767" attributes="0"/>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Component id="PickScrollPane" alignment="0" pref="598" max="32767" attributes="0"/>
+                  <Component id="pickScrollPane" alignment="0" pref="598" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -134,23 +134,23 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <EmptySpace min="0" pref="267" max="32767" attributes="0"/>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Component id="PickScrollPane" alignment="0" pref="267" max="32767" attributes="0"/>
+                  <Component id="pickScrollPane" alignment="0" pref="267" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="PickScrollPane">
+        <Container class="javax.swing.JScrollPane" name="pickScrollPane">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JScrollPane" name="ConsolePanel">
+    <Container class="javax.swing.JScrollPane" name="consolePanel">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="ConsoleTextArea">
+        <Component class="javax.swing.JTextArea" name="consoleTextArea">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
