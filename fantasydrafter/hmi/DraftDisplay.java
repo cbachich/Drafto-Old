@@ -4,11 +4,10 @@
  */
 package fantasydrafter.hmi;
 
+import fantasydrafter.Console;
 import fantasydrafter.CustomModel;
 import fantasydrafter.CustomTable;
 import fantasydrafter.DraftoMachine;
-import fantasydrafter.Team;
-import java.util.ArrayList;
 
 /**
  *
@@ -27,7 +26,7 @@ public class DraftDisplay extends javax.swing.JFrame {
           "There is bad data in the table. Please correct!";
   
   // Global Values
-  private StringBuffer consoleText;
+  private Console console;
   private DraftoMachine drafto;
   private Thread draftoThread;
   
@@ -37,13 +36,14 @@ public class DraftDisplay extends javax.swing.JFrame {
   public DraftDisplay() {
     initComponents();
     
+    // Setup the console
+    console = new Console(ConsoleTextArea);
+    
     // Setup the JTable
-    pickModel = new CustomModel();
+    pickModel = new CustomModel(console);
     pickTable = new CustomTable();
     pickTable.setModel(pickModel);
     PickScrollPane.setViewportView(pickTable);
-    
-    consoleText = new StringBuffer();
   }
 
   /**
@@ -176,7 +176,7 @@ public class DraftDisplay extends javax.swing.JFrame {
     // Get the command string
     String command = evt.getActionCommand();
     // Perform an action based on the button selected
-    writeToConsole("Command: " + command);
+    console.write("Command: " + command);
     
     switch(command) {
       case "Start": 
@@ -198,10 +198,8 @@ public class DraftDisplay extends javax.swing.JFrame {
   private void StartDrafter() {
     // Check that the table contains good values. If not, inform the user and do
     // not continue
-    try {
-      ArrayList teams = getTableData();
-    } catch (Exception ex) {
-      writeToConsole(BAD_TABLE);
+    if(!pickModel.isTableGood()) {
+      console.write(BAD_TABLE);
       return;
     }
     
@@ -212,7 +210,7 @@ public class DraftDisplay extends javax.swing.JFrame {
     pickModel.lockCells();
     
     // Start Drafto
-    drafto = new DraftoMachine();
+    drafto = new DraftoMachine(console);
     draftoThread = new Thread(drafto);
     draftoThread.start();
     
@@ -225,7 +223,6 @@ public class DraftDisplay extends javax.swing.JFrame {
     
     // Pause Drafto
     drafto.pause();
-    
   }
   
   // Resume the drafter
@@ -235,7 +232,6 @@ public class DraftDisplay extends javax.swing.JFrame {
     
     // Resume Drafto
     drafto.resume();
-    
   }
   
   // Ends the drafter
@@ -265,91 +261,6 @@ public class DraftDisplay extends javax.swing.JFrame {
       PauseButton.setEnabled(false);
       EndButton.setEnabled(false);     
     }
-  }
-  
-  // Check the table contains good values
-  private ArrayList<Team> getTableData() throws Exception {
-    ArrayList<Team> teams = new ArrayList();
-    boolean passed = true;
-    
-    // Step through each row for error checking
-    for (int row = 0; row < CustomModel.ROWS; row++) {
-      // Start by checking if the team name is empty. If it is, then don't check
-      // the draft numbers
-      String name = getTeamName(row);
-      
-      // If there is no team name then we'll move onto the next row
-      if (name.isEmpty()) {
-        continue;
-      } 
-      
-      // Create a team object since we've got this far
-      Team team = new Team();
-      team.setName(name);
-      
-      // Check that each of the pick number is between the set values
-      int count = 1;
-      for(int pickCol = CustomModel.FIRST_PICK_COL;
-              pickCol < CustomModel.LAST_PICK_COL; 
-              pickCol++) {
-        if(isPickGood(row,pickCol)) {
-          team.addPick(getPickValue(row,pickCol));
-        } else {
-          writeToConsole("Pick #" + count + " for Team " + name + 
-                  " is not valid");
-          passed = false;
-        }
-        count++;
-      }
-      
-      // If all of the pick values were good, then the only piece remaining is
-      // the row position. This is used to keep track of where the results will
-      // need to be stored.
-      team.setRow(row);
-      
-      teams.add(team);
-    }
-    
-    if (!passed) {
-      throw new Exception();
-    }
-    
-    return teams;
-  }
-  
-  // Return the team name in the passed in row
-  private String getTeamName(int row) {
-    try {
-      return pickModel.getValueAt(row, CustomModel.TEAM_NAME_COL).
-              toString().trim();
-    } catch(Exception ex) {
-      return "";
-    }
-  }
-  
-  // Checks if the pick cell is good
-  private boolean isPickGood(int row, int col) {
-    try {
-      int pick = (Integer)pickModel.getValueAt(row, col);
-      if( (pick >= DraftoMachine.MIN) && (pick <= DraftoMachine.MAX)) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    } catch(Exception ex) {
-      return false;
-    }
-  }
-  
-  // Return the pick value in the row and col
-  private int getPickValue(int row, int col) {
-    return (Integer)pickModel.getValueAt(row, col);
-  }
-
-  private void writeToConsole(String add) {
-    consoleText.append(add).append("\n");
-    ConsoleTextArea.setText(consoleText.toString());
   }
 
   /**
@@ -381,6 +292,7 @@ public class DraftDisplay extends javax.swing.JFrame {
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
+      @Override
       public void run() {
         new DraftDisplay().setVisible(true);
       }

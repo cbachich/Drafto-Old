@@ -25,10 +25,14 @@ public class DraftoMachine implements Runnable {
   // Keep track of if drafto is running
   private boolean running;
   
+  // For writing to the console
+  private Console console;
+  
   // Initialize the 
-  public DraftoMachine() {
+  public DraftoMachine(Console console) {
     drafto = new Random();
     running = true;
+    this.console = console;
   }
 
   @Override
@@ -39,7 +43,7 @@ public class DraftoMachine implements Runnable {
       if(running) {
         int pick = getPick();
 
-        System.out.println("Pick: " + pick);
+        console.write("Pick: " + pick);
         
         checkPicks();
       } 
