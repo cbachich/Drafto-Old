@@ -44,10 +44,10 @@ public class CustomModel extends AbstractTableModel {
     {null, null, null, null, null, null, null}
   };
 
-  Class[] types = new Class [] {
-    String.class,  Integer.class, Integer.class, Integer.class, 
-    Integer.class, Integer.class, Integer.class
-  };
+//  Class[] types = new Class [] {
+//    String.class,  Integer.class, Integer.class, Integer.class, 
+//    Integer.class, Integer.class, Integer.class
+//  };
    
   /******************
    * Global Values  *
@@ -83,10 +83,10 @@ public class CustomModel extends AbstractTableModel {
       return data[row][col];
   }
 
-  @Override
-  public Class getColumnClass(int c) {
-      return types[c];
-  }
+//  @Override
+//  public Class getColumnClass(int c) {
+//      return types[c];
+//  }
 
   /*
    * Don't need to implement this method unless your table's

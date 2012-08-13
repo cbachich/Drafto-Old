@@ -5,8 +5,8 @@
 package fantasydrafter.hmi;
 
 import fantasydrafter.Console;
+import fantasydrafter.CustomCellRenderer;
 import fantasydrafter.CustomModel;
-import fantasydrafter.CustomTable;
 import fantasydrafter.DraftoMachine;
 
 /**
@@ -41,8 +41,9 @@ public class DraftDisplay extends javax.swing.JFrame {
     
     // Setup the JTable
     pickModel = new CustomModel(console);
-    pickTable = new CustomTable();
     pickTable.setModel(pickModel);
+    pickCellRenderer = new CustomCellRenderer();
+    pickTable.setDefaultRenderer(Object.class, pickCellRenderer);
     pickScrollPane.setViewportView(pickTable);
   }
 
@@ -62,6 +63,7 @@ public class DraftDisplay extends javax.swing.JFrame {
     endButton = new javax.swing.JButton();
     pickPanel = new javax.swing.JPanel();
     pickScrollPane = new javax.swing.JScrollPane();
+    pickTable = new javax.swing.JTable();
     consolePanel = new javax.swing.JScrollPane();
     consoleTextArea = new javax.swing.JTextArea();
 
@@ -124,6 +126,19 @@ public class DraftDisplay extends javax.swing.JFrame {
           .addComponent(endButton))
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
+
+    pickTable.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null}
+      },
+      new String [] {
+        "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+    ));
+    pickScrollPane.setViewportView(pickTable);
 
     javax.swing.GroupLayout pickPanelLayout = new javax.swing.GroupLayout(pickPanel);
     pickPanel.setLayout(pickPanelLayout);
@@ -273,7 +288,7 @@ public class DraftDisplay extends javax.swing.JFrame {
   
   // Variables decleration - can modify
   private CustomModel pickModel;
-  private CustomTable pickTable;
+  private CustomCellRenderer pickCellRenderer;
   
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JPanel buttonPanel;
@@ -283,6 +298,7 @@ public class DraftDisplay extends javax.swing.JFrame {
   private javax.swing.JButton pauseButton;
   private javax.swing.JPanel pickPanel;
   private javax.swing.JScrollPane pickScrollPane;
+  private javax.swing.JTable pickTable;
   private javax.swing.JButton resumeButton;
   private javax.swing.JButton startButton;
   // End of variables declaration//GEN-END:variables
