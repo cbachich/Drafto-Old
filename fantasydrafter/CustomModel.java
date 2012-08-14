@@ -21,6 +21,7 @@ public class CustomModel extends AbstractTableModel {
   public static int FIRST_PICK_COL  = 1;
   public static int LAST_PICK_COL   = 5;
   public static int DRAFT_ORDER_COL = 6;
+  public static String PICKED = "!";
   
   /******************
    * Table Contents *
@@ -31,24 +32,25 @@ public class CustomModel extends AbstractTableModel {
 
   private Object[][] data = new Object[][] {
     {"8-Bit Warriors",  new Integer(1),  new Integer(2),  new Integer(3),  new Integer(4),  new Integer(5), null},
-    {null, null, null, null, null, null, null},
     {"Victorious Secret",  new Integer(2),  new Integer(5), new Integer(4),  new Integer(5),  new Integer(3), null},
-    {null, null, null, null, null, null, null},
+    {"Someone",  new Integer(2),  new Integer(3),  new Integer(1),  new Integer(8),  new Integer(9), null},
     {null,  new Integer(2),  new Integer(5),  new Integer(6),  new Integer(7),  new Integer(8), null},
     {"Smack Talkers",  new Integer(8),  new Integer(1),  new Integer(5),  new Integer(1),  new Integer(8), null},
     {null, null, null, null, null, null, null},
-    {"Someone",  new Integer(2),  new Integer(3),  new Integer(1),  new Integer(8),  new Integer(9), null},
+    {null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null},
     {null, null, null, null, null, null, null},
     {null, null, null, null, null, null, null},
     {null, null, null, null, null, null, null},
     {null, null, null, null, null, null, null}
   };
-
-//  Class[] types = new Class [] {
-//    String.class,  Integer.class, Integer.class, Integer.class, 
-//    Integer.class, Integer.class, Integer.class
-//  };
-   
+  
+  // Keeps track of which rows have picks available
+  private boolean[] active;
+  private int pickActive[];
+  private int draftOrder;
+  private int teamsActive;
+     
   /******************
    * Global Values  *
    * ****************/
@@ -58,6 +60,8 @@ public class CustomModel extends AbstractTableModel {
   public CustomModel(Console console) {
     this.locked = false;
     this.console = console;
+    draftOrder = 1;
+    teamsActive = 0;
   }
   
   /******************
@@ -126,6 +130,8 @@ public class CustomModel extends AbstractTableModel {
   // Check the table contains good values
   public boolean isTableGood() {
     boolean passed = true;
+    active = new boolean[ROWS];
+    pickActive = new int[ROWS];
     
     // Step through each row for error checking
     for (int row = 0; row < ROWS; row++) {
@@ -145,12 +151,60 @@ public class CustomModel extends AbstractTableModel {
           console.write("Pick #" + count + " for Team " + name + 
                   " is not valid");
           passed = false;
+        } else {
+          // Indicate that this row is good by activating it
+          active[row] = true;
+          
+          // Also set the first pick as the active one
+          pickActive[row] = FIRST_PICK_COL;
+          
+          // Add the team to the teams active for tracking
+          teamsActive++;
         }
         count++;
       }
     }
     
     return passed;
+  }
+  
+  // Takes a pick and determines which teams have it
+  public void checkPick(int pick) {
+    // Loop through each active row to determine if it's pick should be checked
+    for(int row = 0; row < ROWS; row++) {
+      // Move onto the next row if this row is not active
+      if(!active[row]) {
+        continue;
+      }
+      
+      // Check if the pick matches the pick value
+      int pickCol = pickActive[row];
+      if(pick == getPickValue(row,pickCol)) {
+        // If this was the final pick, assign a draft spot
+        if(pickCol == LAST_PICK_COL) {
+          active[row] = false;
+          setValueAt(PICKED, row, pickCol);
+          setValueAt(draftOrder++, row, DRAFT_ORDER_COL);
+          teamsActive--;
+          continue;
+        }
+        
+        // Set the pick to an exclamation to indicate it's been picked
+        setValueAt(PICKED, row, pickCol);
+        
+        // Change the active pick column to the next
+        pickActive[row]++;
+      }
+    }
+  }
+  
+  // Returns whether their are any active teams remaining
+  public boolean areTeamsActive() {
+    if(teamsActive > 0) {
+      return true;
+    }
+    
+    return false;
   }
   
   // Return the team name in the passed in row
@@ -163,7 +217,7 @@ public class CustomModel extends AbstractTableModel {
     }
   }
   
-    // Checks if the pick cell is good
+  // Checks if the pick cell is good
   private boolean isPickGood(int row, int col) {
     try {
       int pick = (Integer)getValueAt(row, col);
@@ -182,4 +236,5 @@ public class CustomModel extends AbstractTableModel {
   private int getPickValue(int row, int col) {
     return (Integer)getValueAt(row, col);
   }
+  
 }

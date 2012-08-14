@@ -21,7 +21,7 @@ public class Console {
   }
   
   public void write(String newText) {
-    text.append(newText).append("\n");
+    text.insert(0,"\n").insert(0,newText);
     textArea.setText(text.toString());
   }
   

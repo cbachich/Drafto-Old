@@ -17,7 +17,7 @@ public class DraftoMachine implements Runnable {
   public static int MAX = 10;
   
   // Timer values
-  private static int WAIT = 3;
+  private static int WAIT = 1;
   
   // The random generator
   private Random drafto;
@@ -28,11 +28,15 @@ public class DraftoMachine implements Runnable {
   // For writing to the console
   private Console console;
   
+  // Access to the model
+  private CustomModel pickModel;
+  
   // Initialize the 
-  public DraftoMachine(Console console) {
+  public DraftoMachine(Console console, CustomModel pickModel) {
     drafto = new Random();
     running = true;
     this.console = console;
+    this.pickModel = pickModel;
   }
 
   @Override
@@ -45,8 +49,13 @@ public class DraftoMachine implements Runnable {
 
         console.write("Pick: " + pick);
         
-        checkPicks();
-      } 
+        pickModel.checkPick(pick);
+        
+        if(!pickModel.areTeamsActive()) {
+          console.write("All draft picks assigned!");
+          running = false;
+        }
+      }
     
       // Wait the designated amount of time
       try {
@@ -68,9 +77,5 @@ public class DraftoMachine implements Runnable {
   // Return a random number between [Minimum,Maximum]
   private int getPick() {
     return drafto.nextInt(MAX - MIN + 1) + MIN;
-  }
-  
-  private void checkPicks() {
-    // TODO
   }
 }

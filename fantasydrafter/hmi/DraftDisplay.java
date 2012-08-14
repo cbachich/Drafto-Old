@@ -201,7 +201,7 @@ public class DraftDisplay extends javax.swing.JFrame {
     pickModel.lockCells();
     
     // Start Drafto
-    drafto = new DraftoMachine(console);
+    drafto = new DraftoMachine(console, pickModel);
     draftoThread = new Thread(drafto);
     draftoThread.start();
   }//GEN-LAST:event_startDrafto
