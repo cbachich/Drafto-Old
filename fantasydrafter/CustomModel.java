@@ -34,7 +34,7 @@ public class CustomModel extends AbstractTableModel {
     {"8-Bit Warriors",  new Integer(1),  new Integer(2),  new Integer(3),  new Integer(4),  new Integer(5), null},
     {"Victorious Secret",  new Integer(2),  new Integer(5), new Integer(4),  new Integer(5),  new Integer(3), null},
     {"Someone",  new Integer(2),  new Integer(3),  new Integer(1),  new Integer(8),  new Integer(9), null},
-    {null,  new Integer(2),  new Integer(5),  new Integer(6),  new Integer(7),  new Integer(8), null},
+    {"Kyle's Gay Warriors",  new Integer(2),  new Integer(5),  new Integer(6),  new Integer(7),  new Integer(8), null},
     {"Smack Talkers",  new Integer(8),  new Integer(1),  new Integer(5),  new Integer(1),  new Integer(8), null},
     {null, null, null, null, null, null, null},
     {null, null, null, null, null, null, null},

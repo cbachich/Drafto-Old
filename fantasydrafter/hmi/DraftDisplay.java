@@ -7,7 +7,11 @@ package fantasydrafter.hmi;
 import fantasydrafter.Console;
 import fantasydrafter.CustomCellRenderer;
 import fantasydrafter.CustomModel;
+import fantasydrafter.CustomTable;
 import fantasydrafter.DraftoMachine;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -39,14 +43,31 @@ public class DraftDisplay extends javax.swing.JFrame {
     // Setup the console
     console = new Console(consoleTextArea);
     
-    // Setup the JTable
+    // Create a custom table
+    CustomTable pickTable = new CustomTable();
+    
+    // Create a custom model and allocate it to the pickTable
     pickModel = new CustomModel(console);
     pickTable.setModel(pickModel);
+    pickTable.resizeColumns();
+    
+    // Turn on basic header sorting
+    pickTable.setAutoCreateRowSorter(true);
+    
+    // Change the header colors
+    JTableHeader header = pickTable.getTableHeader();
+    header.setBackground(new Color(193,205,193));
+    header.setForeground(new Color(25,25,112));
+    header.setFont(new Font("Dialog", Font.BOLD, 14));
+  
+    // Set the custom cell renderer
     pickCellRenderer = new CustomCellRenderer();
     pickTable.setDefaultRenderer(Object.class, pickCellRenderer);
+    
+    // Finally set the scroll pane to include the pickTable
     pickScrollPane.setViewportView(pickTable);
   }
-
+  
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,7 +84,6 @@ public class DraftDisplay extends javax.swing.JFrame {
     endButton = new javax.swing.JButton();
     pickPanel = new javax.swing.JPanel();
     pickScrollPane = new javax.swing.JScrollPane();
-    pickTable = new javax.swing.JTable();
     consolePanel = new javax.swing.JScrollPane();
     consoleTextArea = new javax.swing.JTextArea();
 
@@ -126,19 +146,6 @@ public class DraftDisplay extends javax.swing.JFrame {
           .addComponent(endButton))
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
-
-    pickTable.setModel(new javax.swing.table.DefaultTableModel(
-      new Object [][] {
-        {null, null, null, null},
-        {null, null, null, null},
-        {null, null, null, null},
-        {null, null, null, null}
-      },
-      new String [] {
-        "Title 1", "Title 2", "Title 3", "Title 4"
-      }
-    ));
-    pickScrollPane.setViewportView(pickTable);
 
     javax.swing.GroupLayout pickPanelLayout = new javax.swing.GroupLayout(pickPanel);
     pickPanel.setLayout(pickPanelLayout);
@@ -298,7 +305,6 @@ public class DraftDisplay extends javax.swing.JFrame {
   private javax.swing.JButton pauseButton;
   private javax.swing.JPanel pickPanel;
   private javax.swing.JScrollPane pickScrollPane;
-  private javax.swing.JTable pickTable;
   private javax.swing.JButton resumeButton;
   private javax.swing.JButton startButton;
   // End of variables declaration//GEN-END:variables
