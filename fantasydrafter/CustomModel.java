@@ -113,8 +113,19 @@ public class CustomModel extends AbstractTableModel {
    */
   @Override
   public void setValueAt(Object value, int row, int col) {
-      data[row][col] = value;
-      fireTableCellUpdated(row, col);
+    String valueS = value.toString();
+    
+    // If this is the "!" that indicates a pick number has been picked, don't
+    // convert it to Integer
+    if( (col == TEAM_NAME_COL) || valueS.equals(PICKED) ) {
+      data[row][col] = valueS;
+    }
+    // Otherwise this needs to be converted to an Integer
+    else {
+      data[row][col] = Integer.parseInt(valueS);
+    }
+    fireTableCellUpdated(row, col);
+    
   }
   
   // Lock the cells from editing
