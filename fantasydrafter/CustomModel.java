@@ -157,7 +157,7 @@ public class CustomModel extends AbstractTableModel {
       
       // Check that each of the pick number is between the set values
       int count = 1;
-      for(int pickCol = FIRST_PICK_COL; pickCol < LAST_PICK_COL; pickCol++) {
+      for(int pickCol = FIRST_PICK_COL; pickCol <= LAST_PICK_COL; pickCol++) {
         if(!isPickGood(row,pickCol)) {
           console.write("Pick #" + count + " for Team " + name + 
                   " is not valid");
@@ -231,7 +231,7 @@ public class CustomModel extends AbstractTableModel {
   // Checks if the pick cell is good
   private boolean isPickGood(int row, int col) {
     try {
-      int pick = (Integer)getValueAt(row, col);
+      int pick = getPickValue(row, col);
       if( (pick >= DraftoMachine.MIN) && (pick <= DraftoMachine.MAX)) {
         return true;
       }
