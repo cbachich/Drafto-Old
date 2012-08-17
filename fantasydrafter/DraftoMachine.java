@@ -49,7 +49,7 @@ public class DraftoMachine implements Runnable {
 
         console.write("Pick: " + pick);
         
-        pickModel.checkPick(pick);
+        pickModel.makePicks(pick);
         
         if(!pickModel.areTeamsActive()) {
           console.write("All draft picks assigned!");

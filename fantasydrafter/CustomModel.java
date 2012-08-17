@@ -4,6 +4,8 @@
  */
 package fantasydrafter;
 
+import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -31,12 +33,12 @@ public class CustomModel extends AbstractTableModel {
   };
 
   private Object[][] data = new Object[][] {
-    {"8-Bit Warriors",  new Integer(1),  new Integer(2),  new Integer(3),  new Integer(4),  new Integer(5), null},
-    {"Victorious Secret",  new Integer(2),  new Integer(5), new Integer(4),  new Integer(5),  new Integer(3), null},
-    {"Someone",  new Integer(2),  new Integer(3),  new Integer(1),  new Integer(8),  new Integer(9), null},
-    {"Kyle's Gay Warriors",  new Integer(2),  new Integer(5),  new Integer(6),  new Integer(7),  new Integer(8), null},
-    {"Smack Talkers",  new Integer(8),  new Integer(1),  new Integer(5),  new Integer(1),  new Integer(8), null},
-    {null, null, null, null, null, null, null},
+    {"8-Bit Warriors",  new Integer(1),  new Integer(1),  new Integer(1),  new Integer(1),  new Integer(1), null},
+    {"Victorious Secret",  new Integer(2),  new Integer(2), new Integer(2),  new Integer(2),  new Integer(2), null},
+    {"Someone",  new Integer(2),  new Integer(2),  new Integer(2),  new Integer(2),  new Integer(2), null},
+    {"Kyle's Gay Warriors",  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3), null},
+    {"Smack Talkers",  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3), null},
+    {"Kitty Kats", new Integer(3), new Integer(3), new Integer(3), new Integer(3), new Integer(3), null},
     {null, null, null, null, null, null, null},
     {null, null, null, null, null, null, null},
     {null, null, null, null, null, null, null},
@@ -180,7 +182,10 @@ public class CustomModel extends AbstractTableModel {
   }
   
   // Takes a pick and determines which teams have it
-  public void checkPick(int pick) {
+  public void makePicks(int pick) {
+    // Save any finishers to perform tie breakers
+    ArrayList<Integer> finished = new ArrayList();
+    
     // Loop through each active row to determine if it's pick should be checked
     for(int row = 0; row < ROWS; row++) {
       // Move onto the next row if this row is not active
@@ -195,7 +200,10 @@ public class CustomModel extends AbstractTableModel {
         if(pickCol == LAST_PICK_COL) {
           active[row] = false;
           setValueAt(PICKED, row, pickCol);
-          setValueAt(draftOrder++, row, DRAFT_ORDER_COL);
+          
+          // Add this row as finished in case a tie breaker is required
+          finished.add(row);
+          
           teamsActive--;
           continue;
         }
@@ -206,6 +214,21 @@ public class CustomModel extends AbstractTableModel {
         // Change the active pick column to the next
         pickActive[row]++;
       }
+    }
+    
+    // If any teams finished, tie breaking is in order
+    if(finished.size() > 0) {
+      Random random = new Random();
+      
+      // Loop through each of the tied teams and decide a winner
+      while(finished.size() > 1) {
+        int teamRow = random.nextInt(finished.size());
+        setValueAt(draftOrder++, finished.get(teamRow), DRAFT_ORDER_COL);
+        finished.remove(teamRow);
+      }
+      
+      // Finally set the last team
+      setValueAt(draftOrder++, finished.get(0), DRAFT_ORDER_COL);
     }
   }
   
