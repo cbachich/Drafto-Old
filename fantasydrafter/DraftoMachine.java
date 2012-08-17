@@ -4,6 +4,7 @@
  */
 package fantasydrafter;
 
+import fantasydrafter.hmi.PickPanel;
 import java.util.Random;
 
 /**
@@ -17,7 +18,7 @@ public class DraftoMachine implements Runnable {
   public static int MAX = 10;
   
   // Timer values
-  private static int WAIT = 1;
+  private static int WAIT = 2;
   
   // The random generator
   private Random drafto;
@@ -25,17 +26,17 @@ public class DraftoMachine implements Runnable {
   // Keep track of if drafto is running
   private boolean running;
   
-  // For writing to the console
-  private Console console;
+  // For displaying the picks
+  private PickPanel pickPanel;
   
   // Access to the model
   private CustomModel pickModel;
   
   // Initialize the 
-  public DraftoMachine(Console console, CustomModel pickModel) {
+  public DraftoMachine(PickPanel pickPanel, CustomModel pickModel) {
     drafto = new Random();
     running = true;
-    this.console = console;
+    this.pickPanel = pickPanel;
     this.pickModel = pickModel;
   }
 
@@ -47,12 +48,11 @@ public class DraftoMachine implements Runnable {
       if(running) {
         int pick = getPick();
 
-        console.write("Pick: " + pick);
+        pickPanel.activatePick(pick);
         
         pickModel.makePicks(pick);
         
         if(!pickModel.areTeamsActive()) {
-          console.write("All draft picks assigned!");
           running = false;
         }
       }

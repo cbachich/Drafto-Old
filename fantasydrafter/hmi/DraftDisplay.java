@@ -84,7 +84,7 @@ public class DraftDisplay extends javax.swing.JFrame {
     endButton = new javax.swing.JButton();
     pickPanel = new javax.swing.JPanel();
     pickScrollPane = new javax.swing.JScrollPane();
-    consolePanel = new javax.swing.JScrollPane();
+    draftoScrollPane = new javax.swing.JScrollPane();
     consoleTextArea = new javax.swing.JTextArea();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -151,31 +151,31 @@ public class DraftDisplay extends javax.swing.JFrame {
     pickPanel.setLayout(pickPanelLayout);
     pickPanelLayout.setHorizontalGroup(
       pickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 598, Short.MAX_VALUE)
+      .addGap(0, 710, Short.MAX_VALUE)
       .addGroup(pickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(pickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
+        .addComponent(pickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE))
     );
     pickPanelLayout.setVerticalGroup(
       pickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 267, Short.MAX_VALUE)
+      .addGap(0, 234, Short.MAX_VALUE)
       .addGroup(pickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(pickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+        .addComponent(pickScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
     );
 
     consoleTextArea.setColumns(20);
     consoleTextArea.setRows(5);
-    consolePanel.setViewportView(consoleTextArea);
+    draftoScrollPane.setViewportView(consoleTextArea);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+      .addGroup(layout.createSequentialGroup()
         .addContainerGap()
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-          .addComponent(consolePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
-          .addComponent(buttonPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(pickPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(draftoScrollPane)
+          .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(pickPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addContainerGap())
     );
     layout.setVerticalGroup(
@@ -185,9 +185,9 @@ public class DraftDisplay extends javax.swing.JFrame {
         .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(pickPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(consolePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap())
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(draftoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     pack();
@@ -207,8 +207,12 @@ public class DraftDisplay extends javax.swing.JFrame {
     // Lock the fields
     pickModel.lockCells();
     
+    // Create a new pick panel
+    PickPanel pickPanel = new PickPanel();
+    draftoScrollPane.setViewportView(pickPanel);
+    
     // Start Drafto
-    drafto = new DraftoMachine(console, pickModel);
+    drafto = new DraftoMachine(pickPanel, pickModel);
     draftoThread = new Thread(drafto);
     draftoThread.start();
   }//GEN-LAST:event_startDrafto
@@ -256,7 +260,7 @@ public class DraftDisplay extends javax.swing.JFrame {
       endButton.setEnabled(false);     
     }
   }
-
+  
   /**
    * @param args the command line arguments
    */
@@ -299,8 +303,8 @@ public class DraftDisplay extends javax.swing.JFrame {
   
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JPanel buttonPanel;
-  private javax.swing.JScrollPane consolePanel;
   private javax.swing.JTextArea consoleTextArea;
+  private javax.swing.JScrollPane draftoScrollPane;
   private javax.swing.JButton endButton;
   private javax.swing.JButton pauseButton;
   private javax.swing.JPanel pickPanel;

@@ -39,9 +39,9 @@ public class CustomModel extends AbstractTableModel {
     {"Kyle's Gay Warriors",  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3), null},
     {"Smack Talkers",  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3), null},
     {"Kitty Kats", new Integer(3), new Integer(3), new Integer(3), new Integer(3), new Integer(3), null},
-    {null, null, null, null, null, null, null},
-    {null, null, null, null, null, null, null},
-    {null, null, null, null, null, null, null},
+    {"Another", new Integer(4), new Integer(7), new Integer(10), new Integer(3), new Integer(3), null},
+    {"Team Edward", new Integer(5), new Integer(8), new Integer(10), new Integer(3), new Integer(3), null},
+    {"Team Mario", new Integer(6), new Integer(9), new Integer(10), new Integer(3), new Integer(3), null},
     {null, null, null, null, null, null, null},
     {null, null, null, null, null, null, null},
     {null, null, null, null, null, null, null}
