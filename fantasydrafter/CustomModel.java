@@ -32,20 +32,29 @@ public class CustomModel extends AbstractTableModel {
     "Team", "Pick 1", "Pick 2", "Pick 3", "Pick4", "Pick 5", "Draft Order"
   };
 
-  private Object[][] data = new Object[][] {
-    {"8-Bit Warriors",  new Integer(1),  new Integer(1),  new Integer(1),  new Integer(1),  new Integer(1), null},
-    {"Victorious Secret",  new Integer(2),  new Integer(2), new Integer(2),  new Integer(2),  new Integer(2), null},
-    {"Someone",  new Integer(2),  new Integer(2),  new Integer(2),  new Integer(2),  new Integer(2), null},
-    {"Kyle's Gay Warriors",  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3), null},
-    {"Smack Talkers",  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3),  new Integer(3), null},
-    {"Kitty Kats", new Integer(3), new Integer(3), new Integer(3), new Integer(3), new Integer(3), null},
-    {"Another", new Integer(4), new Integer(7), new Integer(10), new Integer(3), new Integer(3), null},
-    {"Team Edward", new Integer(5), new Integer(8), new Integer(10), new Integer(3), new Integer(3), null},
-    {"Team Mario", new Integer(6), new Integer(9), new Integer(10), new Integer(3), new Integer(3), null},
-    {null, null, null, null, null, null, null},
-    {null, null, null, null, null, null, null},
-    {null, null, null, null, null, null, null}
+  private Object[][] data = new Object[][]  {
+    {"8-Bit Warriors",      new Integer(7), new Integer(10), new Integer(1), new Integer(1), new Integer(4), null},
+    {"B.A.M.F.",            new Integer(2), new Integer(4),  new Integer(1), new Integer(7), new Integer(5), null},
+    {"pig skin Dominator",  new Integer(7), new Integer(3),  new Integer(7), new Integer(6), new Integer(4), null},
+    {"ExCuse",              new Integer(9), new Integer(8),  new Integer(3), new Integer(1), new Integer(4), null},
+    {"Tonya's Got This!",   new Integer(7), new Integer(5),  new Integer(1), new Integer(5), new Integer(7), null},
+    {"2010 Champ.",         new Integer(4), new Integer(3),  new Integer(7), new Integer(9), new Integer(1), null},
+    {"Victorious Secret",   new Integer(2), new Integer(6),  new Integer(5), new Integer(9), new Integer(4), null},
+    {"3 uraines",           new Integer(4), new Integer(4),  new Integer(4), new Integer(4), new Integer(4), null},
+    {"Ravage",              new Integer(2), new Integer(4),  new Integer(2), new Integer(7), new Integer(8), null},
+    {"Sweating Bullets",    new Integer(9), new Integer(1),  new Integer(2), new Integer(8), new Integer(4), null},
   };
+  
+/*  private Object[][] data = new Object[][]  {
+    {"8-Bit Warriors",    new Integer(1), new Integer(6), new Integer(1), new Integer(9), new Integer(7), null},
+    {"Furious Kittens",   new Integer(2), new Integer(4), new Integer(3), new Integer(1), new Integer(5), null},
+    {"Lindstrom Legends", new Integer(6), new Integer(9), new Integer(1), new Integer(2), new Integer(9), null},
+    {"Fire Birds",        new Integer(7), new Integer(3), new Integer(7), new Integer(6), new Integer(4), null},
+    {"Pourjavaheri",      new Integer(7), new Integer(6), new Integer(3), new Integer(4), new Integer(9), null},
+    {"Bachicha",          new Integer(5), new Integer(7), new Integer(4), new Integer(5), new Integer(2), null},
+    {"Leonard",           new Integer(5), new Integer(7), new Integer(1), new Integer(7), new Integer(5), null},
+    {"Uraine",            new Integer(4), new Integer(4), new Integer(4), new Integer(4), new Integer(4), null},
+  };*/
   
   // Keeps track of which rows have picks available
   private boolean[] active;

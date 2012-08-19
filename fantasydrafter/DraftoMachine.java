@@ -18,7 +18,7 @@ public class DraftoMachine implements Runnable {
   public static int MAX = 10;
   
   // Timer values
-  private static int WAIT = 2;
+  private static int WAIT = 1;
   
   // The random generator
   private Random drafto;
